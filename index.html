@@ -216,10 +216,6 @@
             margin: 18px 0
         }
 
-        .center {
-            text-align: center
-        }
-
         .hero {
             padding: 104px 0 72px
         }
@@ -288,7 +284,7 @@
             font-size: 14px
         }
 
-        /* Form styles (custom form, HubSpot API) */
+        /* Custom contact form (HubSpot API) */
         form#contact-form label {
             font-weight: 600;
             color: #334155;
@@ -488,7 +484,7 @@
         <div class="container">
             <h2>Revenue operations in HubSpot</h2>
             <p class="muted">Reporting • Lead nurturing & campaigns • Lead management • Reduce human error between Sales & Marketing</p>
-            <div class="grid cols-3" style="margin-top:16px">
+            <div class="grid cols-3" style="margin-top:16px)">
                 <div class="card">
                     <h3>Lifecycle & routing</h3>
                     <p class="muted">Lifecycle stages, lead status, territories, SLAs, and speed‑to‑lead workflows to prevent drop‑offs.</p>
@@ -682,30 +678,31 @@
             <div class="grid cols-2" style="margin-top:16px">
                 <div class="card">
                     <h3>Book a call</h3>
-                    <p class="muted small">Pick a time that works for you.</p> <!-- Replace YOUR_CALENDLY_URL with your real link to avoid 404 -->
+                    <p class="muted small">Pick a time that works for you.</p>
                     <div class="calendly-inline-widget" data-url="https://calendly.com/arshdeepsinghsaggu/30min?hide_gdpr_banner=1" style="min-width:320px;height:680px;"></div>
                 </div>
                 <div class="card">
                     <h3>Get in touch</h3>
                     <p class="muted small">Send a quick note. I’ll reply within 1 business day.</p>
+
                     <!-- Custom form (submits to HubSpot Forms API) -->
                     <form id="contact-form" novalidate>
                         <label class="small muted" for="firstname">Name</label><br />
-                        <input id="firstname" name="firstname" type="text" required placeholder="Enter Your Name" style="margin:6px 0 12px" /><br />
+                        <input id="firstname" name="firstname" type="text" autocomplete="name" required placeholder="Enter Your Name" style="margin:6px 0 12px" /><br />
 
                         <label class="small muted" for="email">Email</label><br />
-                        <input id="email" name="email" type="email" required placeholder="you@company.com" style="margin:6px 0 12px" /><br />
+                        <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" style="margin:6px 0 12px" /><br />
 
                         <label class="small muted" for="mobilephone">Mobile Number</label><br />
-                        <input id="mobilephone" name="mobilephone" type="tel" placeholder="+91" style="margin:6px 0 12px" /><br />
+                        <input id="mobilephone" name="mobilephone" type="tel" autocomplete="tel" placeholder="+91" style="margin:6px 0 12px" /><br />
 
                         <label class="small muted" for="website">Website / Product</label><br />
-                        <input id="website" name="website" type="url" required placeholder="https://example.com" style="margin:6px 0 12px" /><br />
+                        <input id="website" name="website" type="url" autocomplete="url" required placeholder="https://example.com" style="margin:6px 0 12px" /><br />
 
                         <label class="small muted" for="message">How can I help?</label><br />
                         <input id="message" name="message" type="text" required placeholder="e.g., Lower CAC; Increase MRR & ARR" style="margin:6px 0 12px" /><br />
 
-                        <!-- Hidden UTM/meta fields (create these properties in HubSpot if you want them saved) -->
+                        <!-- Hidden UTM/meta fields (create these properties in HubSpot to store them) -->
                         <input type="hidden" name="utm_source" />
                         <input type="hidden" name="utm_medium" />
                         <input type="hidden" name="utm_campaign" />
@@ -760,12 +757,19 @@
             });
         });
 
+        // Guard: block any accidental mailto submits
+        document.addEventListener('submit', function(e) {
+            const f = e.target;
+            const action = (f.getAttribute('action') || '').trim().toLowerCase();
+            if (action.startsWith('mailto:')) e.preventDefault();
+        }, true);
+
         // Year
         document.getElementById('year').textContent = new Date().getFullYear();
     </script> <!-- UTM/meta capture + HubSpot Forms API submission -->
     <script>
         (function() { // Capture UTMs/meta and store const qs = new URLSearchParams(window.location.search); const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']; const meta = { page_url: window.location.href, referrer: document.referrer || '' }; utmKeys.forEach(k => { const v = qs.get(k) || localStorage.getItem(k) || ''; if (v) { localStorage.setItem(k, v); meta[k] = v; } });
-            // HubSpot config (keep your existing form IDs)
+            // HubSpot config (your portal + form)
             const portalId = '243640889';
             const formId = '88be37be-f524-4882-b51f-34152eff6b66';
 
@@ -774,8 +778,8 @@
             const btn = document.getElementById('submitBtn');
 
             function getCookie(name) {
-                const row = document.cookie.split('; ').find(r => r.startsWith(name + '='));
-                return row ? decodeURIComponent(row.split('=')) : '';
+                const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.*+?^${}()|[\]\\])/g, '\\$1') + '=([^;]*)'));
+                return m ? decodeURIComponent(m) : '';
             }
 
             function buildPayload(fd) {
@@ -800,8 +804,6 @@
                         pageName: document.title
                     }
                 };
-                // If GDPR consent is required on your portal, add:
-                // payload.legalConsentOptions = { consent: { consentToProcess:true, text:"I agree to allow processing.", communications:[] } };
                 return payload;
             }
 
@@ -820,7 +822,7 @@
             }
 
             if (form) {
-                // Pre-fill hidden meta inputs (so they also store in HubSpot properties)
+                // Pre-fill hidden meta inputs for property storage
                 Object.keys(meta).forEach(k => {
                     const el = form.querySelector(`[name="${k}"]`);
                     if (el) el.value = meta[k] || '';
@@ -867,4 +869,3 @@
 </body>
 
 </html>
-
