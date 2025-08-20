@@ -216,6 +216,10 @@
             margin: 18px 0
         }
 
+        .center {
+            text-align: center
+        }
+
         .hero {
             padding: 104px 0 72px
         }
@@ -284,23 +288,27 @@
             font-size: 14px
         }
 
-        /* Custom contact form (HubSpot API) */
-        form#contact-form label {
+        /* HubSpot form styles (scoped) */
+        #hs-contact-form * {
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif
+        }
+
+        #hs-contact-form .hs-form-field label {
             font-weight: 600;
             color: #334155;
             font-size: 14px
         }
 
-        form#contact-form input,
-        form#contact-form textarea,
-        form#contact-form select {
+        #hs-contact-form .hs-input,
+        #hs-contact-form textarea,
+        #hs-contact-form select {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--line);
             border-radius: 12px
         }
 
-        form#contact-form button {
+        #hs-contact-form .hs-button {
             background: #4F46E5;
             color: #fff;
             border-radius: 12px;
@@ -310,12 +318,12 @@
             cursor: pointer
         }
 
-        form#contact-form button:hover {
+        #hs-contact-form .hs-button:hover {
             background: #4338CA
         }
 
-        #form-status {
-            color: #334155
+        #hs-contact-form .hs-error-msgs label {
+            color: #DC2626
         }
 
         @media (max-width:980px) {
@@ -419,7 +427,7 @@
             <div class="grid cols-3" style="margin-top:16px">
                 <div class="card">
                     <h3>Account architecture</h3>
-                    <p class="muted">Brand vs. non‑brand, audience layering, feed setup, remarketing, and geo/placement controls.</p>
+                    <p class="muted">Brand vs. non‑brand, SKAG/SKAG‑lite, audience layering, feed setup, remarketing, and geo/placement controls.</p>
                     <div class="tag">Search</div>
                     <div class="tag">Performance Max</div>
                     <div class="tag">Advantage+</div>
@@ -479,12 +487,12 @@
                 </div> <a class="btn btn-primary" href="#contact">Run a health check</a>
             </div>
         </div>
-    </section> <!-- RevOps -->
+    </section> <!-- RevOps / CRM -->
     <section class="section" id="revops">
         <div class="container">
             <h2>Revenue operations in HubSpot</h2>
             <p class="muted">Reporting • Lead nurturing & campaigns • Lead management • Reduce human error between Sales & Marketing</p>
-            <div class="grid cols-3" style="margin-top:16px)">
+            <div class="grid cols-3" style="margin-top:16px">
                 <div class="card">
                     <h3>Lifecycle & routing</h3>
                     <p class="muted">Lifecycle stages, lead status, territories, SLAs, and speed‑to‑lead workflows to prevent drop‑offs.</p>
@@ -547,7 +555,7 @@
                 </div> <a class="btn btn-primary" href="#contact">Start a sprint</a>
             </div>
         </div>
-    </section> <!-- Success & Growth -->
+    </section> <!-- Customer Success & Growth -->
     <section class="section" id="success">
         <div class="container">
             <h2>Customer success tracking & growth</h2>
@@ -679,45 +687,15 @@
                 <div class="card">
                     <h3>Book a call</h3>
                     <p class="muted small">Pick a time that works for you.</p>
-                    <div class="calendly-inline-widget" data-url="https://calendly.com/arshdeepsinghsaggu/30min?hide_gdpr_banner=1" style="min-width:320px;height:680px;"></div>
+                    <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_CALENDLY_URL?hide_gdpr_banner=1" style="min-width:320px;height:680px;"></div>
                 </div>
                 <div class="card">
                     <h3>Get in touch</h3>
-                    <p class="muted small">Send a quick note. I’ll reply within 1 business day.</p>
-
-                    <!-- Custom form (submits to HubSpot Forms API) -->
-                    <form id="contact-form" novalidate>
-                        <label class="small muted" for="firstname">Name</label><br />
-                        <input id="firstname" name="firstname" type="text" autocomplete="name" required placeholder="Enter Your Name" style="margin:6px 0 12px" /><br />
-
-                        <label class="small muted" for="email">Email</label><br />
-                        <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" style="margin:6px 0 12px" /><br />
-
-                        <label class="small muted" for="mobilephone">Mobile Number</label><br />
-                        <input id="mobilephone" name="mobilephone" type="tel" autocomplete="tel" placeholder="+91" style="margin:6px 0 12px" /><br />
-
-                        <label class="small muted" for="website">Website / Product</label><br />
-                        <input id="website" name="website" type="url" autocomplete="url" required placeholder="https://example.com" style="margin:6px 0 12px" /><br />
-
-                        <label class="small muted" for="message">How can I help?</label><br />
-                        <input id="message" name="message" type="text" required placeholder="e.g., Lower CAC; Increase MRR & ARR" style="margin:6px 0 12px" /><br />
-
-                        <!-- Hidden UTM/meta fields (create these properties in HubSpot to store them) -->
-                        <input type="hidden" name="utm_source" />
-                        <input type="hidden" name="utm_medium" />
-                        <input type="hidden" name="utm_campaign" />
-                        <input type="hidden" name="utm_term" />
-                        <input type="hidden" name="utm_content" />
-                        <input type="hidden" name="page_url" />
-                        <input type="hidden" name="referrer" />
-
-                        <!-- Honeypot (spam) -->
-                        <input type="text" name="company_name" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0" />
-
-                        <button id="submitBtn" class="btn btn-primary" type="submit">Submit</button>
-                    </form>
-                    <p id="form-status" class="small muted" role="status" aria-live="polite" style="margin-top:8px;"></p>
-
+                    <p class="muted small">Send a quick note. I’ll reply within 1 business day.</p> <!-- HubSpot form container -->
+                    <div id="hs-contact-form"></div>
+                    <noscript>
+                        Please email me at <a href="mailto:arshdeepsinghsaggu@gmail.com">arshdeepsinghsaggu@gmail.com</a> if the form doesn’t load.
+                    </noscript>
                     <div class="divider"></div>
                     <p class="small"><strong>Email:</strong> <a href="mailto:arshdeepsinghsaggu@gmail.com">arshdeepsinghsaggu@gmail.com</a></p>
                     <p class="small"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/arshdeepsinghsaggu" target="_blank" rel="noopener">linkedin.com/in/arshdeepsinghsaggu</a></p>
@@ -732,7 +710,6 @@
                 <a class="btn btn-primary" href="#contact">Book a call</a>
             </div>
         </div>
-
     </section> <!-- Footer -->
     <footer>
         <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;">
@@ -741,8 +718,7 @@
         </div>
     </footer> <!-- Core JS -->
     <script>
-        // Mobile menu const hamburger = document.getElementById('hamburger'); const menu = document.getElementById('menu'); if (hamburger && menu) hamburger.addEventListener('click', () => menu.classList.toggle('open'));
-        // Smooth scroll
+        // Mobile menu const hamburger = document.getElementById('hamburger'); const menu = document.getElementById('menu'); if (hamburger && menu) hamburger.addEventListener('click', () => menu.classList.toggle('open'));// Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
                 const id = a.getAttribute('href');
@@ -756,116 +732,78 @@
                 }
             });
         });
-
-        // Guard: block any accidental mailto submits
-        document.addEventListener('submit', function(e) {
-            const f = e.target;
-            const action = (f.getAttribute('action') || '').trim().toLowerCase();
-            if (action.startsWith('mailto:')) e.preventDefault();
-        }, true);
-
         // Year
         document.getElementById('year').textContent = new Date().getFullYear();
-    </script> <!-- UTM/meta capture + HubSpot Forms API submission -->
+    </script> <!-- UTM/meta capture for HubSpot hidden fields -->
     <script>
-        (function() { // Capture UTMs/meta and store const qs = new URLSearchParams(window.location.search); const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']; const meta = { page_url: window.location.href, referrer: document.referrer || '' }; utmKeys.forEach(k => { const v = qs.get(k) || localStorage.getItem(k) || ''; if (v) { localStorage.setItem(k, v); meta[k] = v; } });
-            // HubSpot config (your portal + form)
-            const portalId = '243640889';
-            const formId = '88be37be-f524-4882-b51f-34152eff6b66';
-
-            const form = document.getElementById('contact-form');
-            const statusEl = document.getElementById('form-status');
-            const btn = document.getElementById('submitBtn');
-
-            function getCookie(name) {
-                const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.*+?^${}()|[\]\\])/g, '\\$1') + '=([^;]*)'));
-                return m ? decodeURIComponent(m) : '';
-            }
-
-            function buildPayload(fd) {
-                const props = ['firstname', 'email', 'mobilephone', 'website', 'message',
-                    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-                    'page_url', 'referrer'
-                ];
-                const fields = [];
-                props.forEach(name => {
-                    const v = fd.get(name) || meta[name] || '';
-                    if (v) fields.push({
-                        name,
-                        value: String(v)
-                    });
+        (function() {
+            const qs = new URLSearchParams(window.location.search);
+            const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+            const meta = {
+                page_url: window.location.href,
+                referrer: document.referrer || ''
+            };
+            keys.forEach(k => {
+                const v = qs.get(k) || localStorage.getItem(k) || '';
+                if (v) {
+                    localStorage.setItem(k, v);
+                    meta[k] = v;
+                }
+            });
+            window.__HS_FORM_META__ = meta;
+        })();
+    </script> <!-- HubSpot forms v2 embed -->
+    <script src="https://js.hsforms.net/forms/embed/v2.js" charset="utf-8"></script>
+    <script>
+        (function initHS() {
+            function applyMeta($form) {
+                const formEl = $form && $form[0] ? $form[0] : document.querySelector('#hs-contact-form form');
+                if (!formEl) return;
+                const meta = window.__HS_FORM_META__ || {};
+                Object.keys(meta).forEach(name => {
+                    const field = formEl.querySelector('[name="' + name + '"]');
+                    if (field) field.value = meta[name];
                 });
-                const hutk = getCookie('hubspotutk');
-                const payload = {
-                    fields,
-                    context: {
-                        hutk,
-                        pageUri: location.href,
-                        pageName: document.title
-                    }
+                const placeholders = {
+                    firstname: 'Your name',
+                    email: 'you@company.com',
+                    company: 'Company (optional)',
+                    website: 'https://example.com',
+                    website_url: 'https://example.com',
+                    message: 'How can I help?'
                 };
-                return payload;
-            }
-
-            async function submitHS(payload) {
-                const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
-                return fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(payload),
-                    mode: 'cors',
-                    credentials: 'omit'
+                Object.keys(placeholders).forEach(name => {
+                    const el = formEl.querySelector('[name="' + name + '"]');
+                    if (el && !el.placeholder) el.placeholder = placeholders[name];
                 });
             }
 
-            if (form) {
-                // Pre-fill hidden meta inputs for property storage
-                Object.keys(meta).forEach(k => {
-                    const el = form.querySelector(`[name="${k}"]`);
-                    if (el) el.value = meta[k] || '';
-                });
-
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    statusEl.textContent = '';
-
-                    // Honeypot
-                    if (form.company_name && form.company_name.value) {
-                        statusEl.textContent = 'Thanks!';
-                        form.reset();
-                        return;
-                    }
-
-                    const fd = new FormData(form);
-                    const payload = buildPayload(fd);
-
-                    btn.disabled = true;
-                    const prev = btn.textContent;
-                    btn.textContent = 'Sending...';
-                    try {
-                        const res = await submitHS(payload);
-                        if (res.ok) {
-                            statusEl.textContent = 'Thanks! I’ll reply within 1 business day.';
-                            form.reset();
-                        } else {
-                            const json = await res.json().catch(() => null);
-                            statusEl.textContent = (json && json.errors) ?
-                                json.errors.map(e => e.message).join(', ') :
-                                'Something went wrong. Please email me at arshdeepsinghsaggu@gmail.com.';
+            function create() {
+                if (!window.hbspt || !window.hbspt.forms) return setTimeout(create, 100);
+                hbspt.forms.create({
+                    region: "na2",
+                    portalId: "243640889",
+                    formId: "88be37be-f524-4882-b51f-34152eff6b66",
+                    target: "#hs-contact-form",
+                    onFormReady: applyMeta,
+                    onFormSubmitted: function() {
+                        const box = document.getElementById('hs-contact-form');
+                        if (box && !box.querySelector('.hs-thanks')) {
+                            const p = document.createElement('p');
+                            p.className = 'small hs-thanks';
+                            p.style.marginTop = '8px';
+                            p.style.color = '#334155';
+                            p.textContent = "Thanks! I’ll reply within 1 business day.";
+                            box.appendChild(p);
                         }
-                    } catch (err) {
-                        statusEl.textContent = 'Network error. Please email me at arshdeepsinghsaggu@gmail.com.';
-                    } finally {
-                        btn.disabled = false;
-                        btn.textContent = prev;
                     }
                 });
             }
+            create();
         })();
     </script>
 </body>
 
 </html>
+
+
