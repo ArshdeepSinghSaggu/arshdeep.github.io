@@ -8,12 +8,10 @@
   <link rel="canonical" href="https://arshdeepsinghsaggu.github.io/" />
   <meta name="theme-color" content="#f5f5f7" />
 
-  <!-- System-first font stack (SF on Apple), Inter fallback -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Social -->
   <meta property="og:title" content="Full‑funnel growth without the noise" />
   <meta property="og:description" content="PPC + RevOps for B2B SaaS. Clean tracking, reliable HubSpot, and fixes that move revenue." />
   <meta property="og:type" content="website" />
@@ -23,97 +21,79 @@
 
   <style>
     :root{
-      /* Apple-like palette (light) */
-      --surface:#f5f5f7;
-      --panel:#ffffff;
-      --ink:#1d1d1f;
-      --ink-2:#6e6e73;
-      --hairline:#d2d2d7;
-      --accent:#0071e3;
-      --accent-press:#0060c7;
-
-      --maxw:1160px;
-      --radius:20px;
-      --shadow-1:0 10px 30px rgba(0,0,0,.06);
-      --shadow-2:0 16px 46px rgba(0,0,0,.12);
-
-      /* Motion tokens */
-      --ease:cubic-bezier(.2,.7,.3,1);
-      --dur:.5s;
+      --surface:#f5f5f7; --panel:#ffffff; --ink:#1d1d1f; --ink-2:#6e6e73; --hairline:#d2d2d7;
+      --accent:#0071e3; --accent-press:#0060c7;
+      --maxw:1160px; --radius:20px;
+      --shadow-1:0 10px 30px rgba(0,0,0,.06); --shadow-2:0 16px 46px rgba(0,0,0,.12);
+      --ease:cubic-bezier(.2,.7,.3,1); --dur:.5s;
+      --announce-h: 0px;
     }
     @media (prefers-color-scheme: dark){
       :root{
-        --surface:#000000;
-        --panel:#0b0b0d;
-        --ink:#f5f5f7;
-        --ink-2:#a1a1a6;
-        --hairline:#2a2a2c;
-        --accent:#2997ff;
-        --accent-press:#1b82e6;
-        --shadow-1:0 14px 44px rgba(0,0,0,.5);
-        --shadow-2:0 22px 66px rgba(0,0,0,.65);
+        --surface:#000; --panel:#0b0b0d; --ink:#f5f5f7; --ink-2:#a1a1a6; --hairline:#2a2a2c;
+        --accent:#2997ff; --accent-press:#1b82e6;
+        --shadow-1:0 14px 44px rgba(0,0,0,.5); --shadow-2:0 22px 66px rgba(0,0,0,.65)
       }
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;overflow-x:hidden}
     body{
-      background:var(--surface);
-      color:var(--ink);
+      background:var(--surface); color:var(--ink);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
-      line-height:1.6; font-size:16px;
-      text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
+      line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    img, iframe{max-width:100%;height:auto}
+    img,iframe{max-width:100%;height:auto}
 
-    /* Anchor offset for sticky header + announcement */
-    section[id]{scroll-margin-top:120px}
+    /* Anchor offset for banner + header */
+    section[id]{scroll-margin-top: calc(var(--announce-h) + 84px)}
 
-    /* Layout */
     .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-    .section{padding:120px 0}
+    .section{padding:96px 0}
     .panel{background:var(--panel);border:1px solid var(--hairline);border-radius:var(--radius);box-shadow:var(--shadow-1)}
     .divider{height:1px;background:var(--hairline);margin:26px 0}
 
-    /* Type */
     h1,h2,h3{margin:0 0 12px;line-height:1.1}
     h1{font-weight:700;font-size:clamp(32px,5.2vw,64px);letter-spacing:-.02em;text-wrap:balance}
     h2{font-weight:700;font-size:clamp(24px,3.8vw,44px);letter-spacing:-.01em}
     h3{font-weight:600;font-size:clamp(18px,2.2vw,22px)}
     p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--ink-2);max-width:780px;margin:0 auto 26px}
-    .muted{color:var(--ink-2)}
-    .small{font-size:14px}
+    .muted{color:var(--ink-2)} .small{font-size:14px}
     .section-head{text-align:center;max-width:880px;margin:0 auto 26px}
 
-    /* Announcement bar */
+    /* Announcement (fixed, safe-area aware) */
     .announce{
-      position:sticky; top:0; z-index:60;
-      background:var(--panel); border-bottom:1px solid var(--hairline);
-      display:flex; align-items:center; justify-content:center; gap:12px;
-      padding:8px 12px; font-weight:600; color:var(--ink);
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+      background:color-mix(in srgb, var(--panel) 92%, transparent);
+      backdrop-filter:saturate(180%) blur(8px);
+      border-bottom:1px solid var(--hairline);
+      padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px;
     }
-    .announce .btn-sm{padding:8px 12px; border-radius:18px; min-height:36px; font-size:14px}
-    .announce .announce-close{border:0;background:transparent;color:var(--ink-2);font-size:18px;cursor:pointer;padding:4px 8px;border-radius:8px}
-    @media (max-width:480px){ .announce{flex-wrap:wrap; text-align:center} }
+    .announce-text{flex:1 1 240px; text-align:center; color:var(--ink); font-weight:600}
+    .btn-sm{padding:8px 12px; border-radius:18px; min-height:36px; font-size:14px}
+    .announce-close{border:0;background:transparent;color:var(--ink-2);font-size:18px;cursor:pointer;padding:4px 8px;border-radius:8px}
 
-    /* Nav */
+    /* Header sits below announcement */
     header{
-      position:sticky;top:0;z-index:55;
+      position:sticky; top: var(--announce-h); z-index:950;
       backdrop-filter:saturate(180%) blur(10px);
       background:color-mix(in srgb, var(--surface) 88%, transparent);
       border-bottom:1px solid var(--hairline);
       transition: box-shadow .18s ease, background .18s ease;
     }
     header.scrolled{box-shadow:0 10px 28px rgba(0,0,0,.06)}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:68px; position:relative}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
     .brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:800}
     .brand-mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#111,#444)}
     .menu{display:flex;gap:18px;align-items:center}
-    .menu a{color:var(--ink);font-weight:600}
+    .menu a{font-weight:600}
+    .menu a:not(.btn){color:var(--ink)}
+    .menu a.btn{color:#fff}
     .hamburger{display:none;background:none;border:0;font-size:26px;color:var(--ink)}
 
-    /* Mobile nav dropdown */
-    #nav-overlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.3); z-index:50}
+    /* Mobile nav */
+    #nav-overlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.3); z-index:900}
     html.nav-open{overflow:hidden}
     @media (max-width:980px){
       .hamburger{display:block}
@@ -121,7 +101,7 @@
         display:none; flex-direction:column; align-items:flex-start; gap:6px;
         position:absolute; top:100%; left:0; right:0;
         background:var(--panel); border:1px solid var(--hairline); border-top:none;
-        padding:12px 16px; box-shadow:var(--shadow-1); z-index:55;
+        padding:12px 16px; box-shadow:var(--shadow-1); z-index:950;
       }
       .menu.open{display:flex}
       .menu a{padding:10px 2px; width:100%}
@@ -129,113 +109,64 @@
       .nav{height:auto; padding:10px 0}
     }
 
-    /* Buttons */
     .btn{display:inline-block;border-radius:24px;padding:12px 20px;font-weight:700;cursor:pointer;transition:.18s var(--ease);border:1px solid transparent;min-height:44px}
-    .btn-primary{
-      position:relative;overflow:hidden;
-      background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 85%, #ffffff));
-      color:#fff; box-shadow:0 10px 24px color-mix(in srgb, var(--accent) 30%, transparent);
-    }
+    .btn-primary{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 85%, #ffffff));color:#fff;box-shadow:0 10px 24px color-mix(in srgb, var(--accent) 30%, transparent)}
     .btn-primary:hover{background:var(--accent-press)}
-    .btn-primary::after{
-      content:"";position:absolute;inset:-2px;
-      background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.45) 50%,transparent 60%);
-      transform:translateX(-160%);transition:transform .6s var(--ease);
-    }
+    .btn-primary::after{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.45) 50%,transparent 60%);transform:translateX(-160%);transition:transform .6s var(--ease)}
     .btn-primary:hover::after{transform:translateX(160%)}
     .btn-ghost{background:transparent;color:var(--accent);border-color:var(--accent)}
     .btn-ghost:hover{background:color-mix(in srgb, var(--accent) 10%, transparent)}
 
-    /* Grids */
     .grid{display:grid;gap:28px}
     .cols-2{grid-template-columns:repeat(2,1fr)}
     .cols-3{grid-template-columns:repeat(3,1fr)}
     .cols-4{grid-template-columns:repeat(4,1fr)}
-
-    /* Cards */
-    .card{background:var(--panel);border:1px solid var(--hairline);border-radius:18px;padding:26px;box-shadow:var(--shadow-1);transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease)}
-    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2);border-color:color-mix(in srgb, var(--accent) 22%, var(--hairline))}
-    .tag{display:inline-block;padding:6px 12px;border-radius:999px;background:color-mix(in srgb, var(--ink) 6%, var(--panel));color:var(--ink-2);font-size:12px;margin:0 6px 6px 0}
-    .cta{border:1px solid var(--hairline);border-radius:18px;padding:26px;background:linear-gradient(180deg,color-mix(in srgb, var(--accent) 6%, var(--panel)), var(--panel));box-shadow:var(--shadow-1);transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease)}
-    .cta:hover{transform:translateY(-4px);box-shadow:var(--shadow-2);border-color:color-mix(in srgb, var(--accent) 22%, var(--hairline))}
-
-    /* Links underline animation */
-    a:not(.btn){
-      background-image:linear-gradient(currentColor,currentColor);
-      background-repeat:no-repeat;background-size:0% 2px;background-position:0 100%;
-      transition:color .25s var(--ease), background-size .25s var(--ease);
-    }
-    a:not(.btn):hover{background-size:100% 2px}
-
-    /* Hero */
-    .hero{padding:140px 0 110px;text-align:center;position:relative;overflow:hidden}
-    .hero::before{
-      content:"";position:absolute;left:50%;top:-140px;width:760px;height:760px;pointer-events:none;
-      transform:translateX(-50%) translateY(calc(var(--par, 0) * -30px));
-      background:radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%);
-      filter:blur(28px);opacity:.35;
-    }
-    .hero .buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .hero .hint{margin-top:24px}
-
-    /* Contact form */
-    form#contact-form label{font-weight:600;color:var(--ink-2);font-size:14px}
-    form#contact-form input, form#contact-form textarea{
-      width:100%;padding:12px 14px;border:1px solid var(--hairline);border-radius:14px;background:var(--panel);color:var(--ink);
-      transition:border-color .2s var(--ease), box-shadow .2s var(--ease);font-size:16px; /* prevent iOS zoom */
-    }
-    form#contact-form input::placeholder, form#contact-form textarea::placeholder{color:var(--ink-2)}
-    form#contact-form input:focus, form#contact-form textarea:focus{
-      outline:none;border-color:var(--accent);
-      box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
-    }
-    form#contact-form button{border-radius:24px}
-    #form-status{color:var(--ink-2)}
-
-    /* Reveal on scroll */
-    .reveal{opacity:0;transform:translateY(8px) scale(.985);transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);will-change:transform,opacity}
-    .reveal.in{opacity:1;transform:none}
-
-    /* Scroll progress bar */
-    #scroll-progress{
-      position:fixed;top:0;left:0;height:3px;width:100%;
-      transform-origin:0 50%;transform:scaleX(var(--scroll, 0));
-      background:linear-gradient(90deg, var(--accent), var(--accent-press));
-      opacity:.9;z-index:9999;pointer-events:none;
-    }
-
-    /* Responsive improvements */
-    .calendly-inline-widget{min-width:100%;height:680px}
-    .section{padding:96px 0}
-    .hero{padding:96px 0 64px}
-    p.lead{max-width:38ch}
-    @media (max-width:1200px){
-      .grid.cols-4{grid-template-columns:repeat(3,1fr)}
-    }
-    @media (max-width:1024px){
-      .grid.cols-3{grid-template-columns:repeat(2,1fr)}
-      .grid.cols-4{grid-template-columns:repeat(2,1fr)}
-    }
+    @media (max-width:1200px){ .grid.cols-4{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:1024px){ .grid.cols-3{grid-template-columns:repeat(2,1fr)} .grid.cols-4{grid-template-columns:repeat(2,1fr)} }
     @media (max-width:768px){
       .container{padding:0 16px}
       .section{padding:72px 0}
-      .hero{padding:80px 0 48px}
       .grid{gap:18px}
       .grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr}
       .card,.panel{padding:18px;border-radius:16px}
-      .calendly-inline-widget{height:600px}
-      form#contact-form button{width:100%}
       .hero .buttons .btn{width:100%}
     }
     @media (max-width:480px){
       h1{font-size:clamp(28px,8vw,36px)}
       h2{font-size:clamp(22px,6.4vw,28px)}
       p.lead{font-size:16px}
-      .calendly-inline-widget{height:540px}
-      .card:hover,.panel:hover{transform:none;box-shadow:var(--shadow-1)}
     }
 
-    /* Reduced motion */
+    .card{background:var(--panel);border:1px solid var(--hairline);border-radius:18px;padding:26px;box-shadow:var(--shadow-1);transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease)}
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2);border-color:color-mix(in srgb, var(--accent) 22%, var(--hairline))}
+    .tag{display:inline-block;padding:6px 12px;border-radius:999px;background:color-mix(in srgb, var(--ink) 6%, var(--panel));color:var(--ink-2);font-size:12px;margin:0 6px 6px 0}
+    .cta{border:1px solid var(--hairline);border-radius:18px;padding:26px;background:linear-gradient(180deg,color-mix(in srgb, var(--accent) 6%, var(--panel)), var(--panel));box-shadow:var(--shadow-1);transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease)}
+    .cta:hover{transform:translateY(-4px);box-shadow:var(--shadow-2);border-color:color-mix(in srgb, var(--accent) 22%, var(--hairline))}
+
+    a:not(.btn){background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-size:0% 2px;background-position:0 100%;transition:color .25s var(--ease), background-size .25s var(--ease)}
+    a:not(.btn):hover{background-size:100% 2px}
+
+    .hero{padding:calc(96px + var(--announce-h)) 0 64px; text-align:center; position:relative; overflow:hidden}
+    .hero::before{content:"";position:absolute;left:50%;top:calc(-140px + var(--announce-h));width:760px;height:760px;pointer-events:none;transform:translateX(-50%) translateY(calc(var(--par, 0) * -30px));background:radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%);filter:blur(28px);opacity:.35}
+    .hero .buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .hero .hint{margin-top:24px}
+
+    form#contact-form label{font-weight:600;color:var(--ink-2);font-size:14px}
+    form#contact-form input, form#contact-form textarea{width:100%;padding:12px 14px;border:1px solid var(--hairline);border-radius:14px;background:var(--panel);color:var(--ink);transition:border-color .2s var(--ease), box-shadow .2s var(--ease);font-size:16px}
+    form#contact-form input::placeholder, form#contact-form textarea::placeholder{color:var(--ink-2)}
+    form#contact-form input:focus, form#contact-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent)}
+    #form-status{color:var(--ink-2)}
+
+    .reveal{opacity:0;transform:translateY(8px) scale(.985);transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);will-change:transform,opacity}
+    .reveal.in{opacity:1;transform:none}
+
+    #scroll-progress{
+      position:fixed; top: var(--announce-h); left:0; height:3px; width:100%;
+      transform-origin:0 50%; transform:scaleX(var(--scroll, 0));
+      background:linear-gradient(90deg, var(--accent), var(--accent-press));
+      opacity:.9; z-index:999; pointer-events:none;
+    }
+
     @media (prefers-reduced-motion: reduce){
       *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
       .reveal,.reveal.in{opacity:1;transform:none}
@@ -243,43 +174,28 @@
     }
   </style>
 
-  <!-- Calendly -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-  <!-- JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Arshdeep Singh Saggu",
-    "url":"https://arshdeepsinghsaggu.github.io/",
-    "jobTitle":"Performance Marketer & RevOps",
-    "sameAs":["https://www.linkedin.com/in/arshdeepsinghsaggu"],
-    "seeks":{"@type":"Demand","itemOffered":{"@type":"JobPosting","title":"Performance Marketer / Growth Marketer / RevOps (B2B SaaS)","employmentType":"FULL_TIME","jobLocationType":"TELECOMMUTE","industry":"Software as a Service (SaaS)"}}
-  }
+  {"@context":"https://schema.org","@type":"Person","name":"Arshdeep Singh Saggu","url":"https://arshdeepsinghsaggu.github.io/","jobTitle":"Performance Marketer & RevOps","sameAs":["https://www.linkedin.com/in/arshdeepsinghsaggu"]}
   </script>
 </head>
 <body id="top">
-  <!-- Scroll progress -->
   <div id="scroll-progress" aria-hidden="true"></div>
 
-  <!-- Availability banner -->
+  <!-- Announcement -->
   <div class="announce" id="announce">
-    <span>Actively seeking full‑time B2B SaaS marketing roles.</span>
+    <span class="announce-text">Actively seeking full‑time B2B SaaS roles.</span>
     <a class="btn btn-primary btn-sm" href="#contact">Book a chat</a>
     <button class="announce-close" id="announce-close" aria-label="Dismiss">×</button>
   </div>
 
-  <!-- Mobile backdrop for nav -->
   <div id="nav-overlay" aria-hidden="true"></div>
 
   <header>
     <div class="container nav">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Arshdeep Singh Saggu</span>
-      </a>
+      <a class="brand" href="#top" aria-label="Home"><span class="brand-mark" aria-hidden="true"></span><span>Arshdeep Singh Saggu</span></a>
       <button class="hamburger" aria-label="Menu" id="hamburger">☰</button>
       <nav class="menu" id="menu" aria-label="Primary">
         <a href="#capabilities">Capabilities</a>
@@ -293,7 +209,6 @@
   </header>
 
   <main>
-    <!-- Hero -->
     <section class="hero">
       <div class="container">
         <span class="small muted reveal">B2B SaaS • Performance + RevOps</span>
@@ -307,7 +222,6 @@
       </div>
     </section>
 
-    <!-- Capabilities -->
     <section class="section" id="capabilities">
       <div class="container">
         <div class="section-head reveal">
@@ -315,36 +229,12 @@
           <p class="lead">Clarity, control, and compounding impact—across acquisition, analytics, operations, and automation.</p>
         </div>
         <div class="grid cols-3">
-          <div class="card reveal">
-            <h3>PPC</h3>
-            <p class="muted">Account architecture, creative/keyword tests, pacing and stop‑loss across Google, Meta, Bing, Reddit, Taboola.</p>
-            <div class="tag">Search</div><div class="tag">PMAX</div><div class="tag">Advantage+</div>
-          </div>
-          <div class="card reveal">
-            <h3>Analytics</h3>
-            <p class="muted">GA4 + GTM taxonomy, consent mode, channel grouping fixes, and source‑of‑truth dashboards.</p>
-            <div class="tag">GA4</div><div class="tag">GTM</div><div class="tag">Clarity</div>
-          </div>
-          <div class="card reveal">
-            <h3>RevOps</h3>
-            <p class="muted">Lifecycle, routing SLAs, scoring, dedupe/validation, attribution, and reporting in HubSpot.</p>
-            <div class="tag">HubSpot</div><div class="tag">SLA</div><div class="tag">Attribution</div>
-          </div>
-          <div class="card reveal">
-            <h3>Automations (n8n)</h3>
-            <p class="muted">Capture → enrich → route → alert. Reporting digests, Zapier migrations, retries, and error logs.</p>
-            <div class="tag">Webhooks</div><div class="tag">Enrichment</div><div class="tag">Slack</div>
-          </div>
-          <div class="card reveal">
-            <h3>Funnel repair</h3>
-            <p class="muted">Journey map, prioritized experiments, and weekly cadence for landing, onboarding, and lifecycle.</p>
-            <div class="tag">ICE/PIE</div><div class="tag">Onboarding</div><div class="tag">CRO</div>
-          </div>
-          <div class="card reveal">
-            <h3>Success & growth</h3>
-            <p class="muted">ICP, north‑star/guardrails, ROI/ROAS/CAC/LTV, milestones to hit MRR/ARR/ARPU targets.</p>
-            <div class="tag">MRR/ARR</div><div class="tag">CAC/LTV</div><div class="tag">Cohorts</div>
-          </div>
+          <div class="card reveal"><h3>PPC</h3><p class="muted">Account architecture, creative/keyword tests, pacing and stop‑loss across Google, Meta, Bing, Reddit, Taboola.</p><div class="tag">Search</div><div class="tag">PMAX</div><div class="tag">Advantage+</div></div>
+          <div class="card reveal"><h3>Analytics</h3><p class="muted">GA4 + GTM taxonomy, consent mode, channel grouping fixes, and source‑of‑truth dashboards.</p><div class="tag">GA4</div><div class="tag">GTM</div><div class="tag">Clarity</div></div>
+          <div class="card reveal"><h3>RevOps</h3><p class="muted">Lifecycle, routing SLAs, scoring, dedupe/validation, attribution, and reporting in HubSpot.</p><div class="tag">HubSpot</div><div class="tag">SLA</div><div class="tag">Attribution</div></div>
+          <div class="card reveal"><h3>Automations (n8n)</h3><p class="muted">Capture → enrich → route → alert. Reporting digests, Zapier migrations, retries, and error logs.</p><div class="tag">Webhooks</div><div class="tag">Enrichment</div><div class="tag">Slack</div></div>
+          <div class="card reveal"><h3>Funnel repair</h3><p class="muted">Journey map, prioritized experiments, and weekly cadence for landing, onboarding, and lifecycle.</p><div class="tag">ICE/PIE</div><div class="tag">Onboarding</div><div class="tag">CRO</div></div>
+          <div class="card reveal"><h3>Success & growth</h3><p class="muted">ICP, north‑star/guardrails, ROI/ROAS/CAC/LTV, milestones to hit MRR/ARR/ARPU targets.</p><div class="tag">MRR/ARR</div><div class="tag">CAC/LTV</div><div class="tag">Cohorts</div></div>
         </div>
         <div class="cta reveal" style="margin-top:28px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
           <div><strong>Start with a focused sprint.</strong> <span class="small muted">Two weeks. Prioritized fixes. Simple dashboard.</span></div>
@@ -353,7 +243,6 @@
       </div>
     </section>
 
-    <!-- Outcomes -->
     <section class="section" id="outcomes">
       <div class="container">
         <div class="section-head reveal">
@@ -368,7 +257,6 @@
       </div>
     </section>
 
-    <!-- Process -->
     <section class="section" id="process">
       <div class="container">
         <div class="section-head reveal">
@@ -384,7 +272,6 @@
       </div>
     </section>
 
-    <!-- Proof -->
     <section class="section" id="proof">
       <div class="container">
         <div class="section-head reveal">
@@ -392,26 +279,13 @@
           <p class="lead">Short, specific wins. More on request.</p>
         </div>
         <div class="grid cols-3">
-          <a class="card reveal" href="https://YOUR_CASE_STUDY_LINK_1" target="_blank" rel="noopener">
-            <h3>Reduced CAC while scaling spend</h3>
-            <p class="muted">Restructure + creative tests + stop‑loss → efficient growth.</p>
-            <div class="tag">Google</div><div class="tag">Meta</div><div class="tag">ROAS</div>
-          </a>
-          <a class="card reveal" href="https://YOUR_CASE_STUDY_LINK_2" target="_blank" rel="noopener">
-            <h3>Higher MQL→SQL conversion</h3>
-            <p class="muted">Routing, SLAs, scoring, and nurture → faster speed‑to‑lead.</p>
-            <div class="tag">HubSpot</div><div class="tag">SLA</div><div class="tag">Nurture</div>
-          </a>
-          <a class="card reveal" href="https://YOUR_CASE_STUDY_LINK_3" target="_blank" rel="noopener">
-            <h3>Activation lift from onboarding fixes</h3>
-            <p class="muted">Offer + UX + lifecycle nudges → first‑value rates up.</p>
-            <div class="tag">Onboarding</div><div class="tag">Lifecycle</div><div class="tag">Activation</div>
-          </a>
+          <a class="card reveal" href="https://YOUR_CASE_STUDY_LINK_1" target="_blank" rel="noopener"><h3>Reduced CAC while scaling spend</h3><p class="muted">Restructure + creative tests + stop‑loss → efficient growth.</p><div class="tag">Google</div><div class="tag">Meta</div><div class="tag">ROAS</div></a>
+          <a class="card reveal" href="https://YOUR_CASE_STUDY_LINK_2" target="_blank" rel="noopener"><h3>Higher MQL→SQL conversion</h3><p class="muted">Routing, SLAs, scoring, and nurture → faster speed‑to‑lead.</p><div class="tag">HubSpot</div><div class="tag">SLA</div><div class="tag">Nurture</div></a>
+          <a class="card reveal" href="https://YOUR_CASE_STUDY_LINK_3" target="_blank" rel="noopener"><h3>Activation lift from onboarding fixes</h3><p class="muted">Offer + UX + lifecycle nudges → first‑value rates up.</p><div class="tag">Onboarding</div><div class="tag">Lifecycle</div><div class="tag">Activation</div></a>
         </div>
       </div>
     </section>
 
-    <!-- Hiring -->
     <section class="section" id="hiring">
       <div class="container">
         <div class="section-head reveal">
@@ -419,19 +293,8 @@
           <p class="lead">Available for full‑time B2B SaaS roles. I own PPC, analytics, HubSpot RevOps, and automations end‑to‑end.</p>
         </div>
         <div class="grid cols-2">
-          <div class="card reveal">
-            <h3>What I own</h3>
-            <p class="muted">PPC strategy → execution, event/consent instrumentation, routing/SLA/scoring, n8n workflows, dashboards, experiment design.</p>
-            <div class="tag">Full‑time (Remote/Hybrid)</div><div class="tag">IC or Lead</div>
-          </div>
-          <div class="card reveal">
-            <h3>30/60/90</h3>
-            <ul class="muted" style="margin:0;padding-left:18px">
-              <li>30: Audit PPC/GA4/GTM/HubSpot; fix tracking; quick wins; goals & pacers.</li>
-              <li>60: Restructure; launch tests; routing/SLA + nurture; key automations.</li>
-              <li>90: Scale winners; tighten CAC/ROAS + SQL quality; solid attribution/reporting.</li>
-            </ul>
-          </div>
+          <div class="card reveal"><h3>What I own</h3><p class="muted">PPC strategy → execution, event/consent instrumentation, routing/SLA/scoring, n8n workflows, dashboards, experiment design.</p><div class="tag">Full‑time (Remote/Hybrid)</div><div class="tag">IC or Lead</div></div>
+          <div class="card reveal"><h3>30/60/90</h3><ul class="muted" style="margin:0;padding-left:18px"><li>30: Audit PPC/GA4/GTM/HubSpot; fix tracking; quick wins; goals & pacers.</li><li>60: Restructure; launch tests; routing/SLA + nurture; key automations.</li><li>90: Scale winners; tighten CAC/ROAS + SQL quality; solid attribution/reporting.</li></ul></div>
         </div>
         <div class="cta reveal" style="margin-top:28px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
           <div><strong>Let’s talk.</strong> <span class="small muted">Request my resume or book a call.</span></div>
@@ -443,7 +306,6 @@
       </div>
     </section>
 
-    <!-- Contact -->
     <section class="section" id="contact">
       <div class="container">
         <div class="section-head reveal">
@@ -476,16 +338,8 @@
               <label class="small" for="message">How can I help?</label><br/>
               <input id="message" name="message" type="text" required placeholder="e.g., Lower CAC; Increase activation" style="margin:6px 0 12px"/><br/>
 
-              <!-- Hidden UTM/meta -->
-              <input type="hidden" name="utm_source"/>
-              <input type="hidden" name="utm_medium"/>
-              <input type="hidden" name="utm_campaign"/>
-              <input type="hidden" name="utm_term"/>
-              <input type="hidden" name="utm_content"/>
-              <input type="hidden" name="page_url"/>
-              <input type="hidden" name="referrer"/>
+              <input type="hidden" name="utm_source"/><input type="hidden" name="utm_medium"/><input type="hidden" name="utm_campaign"/><input type="hidden" name="utm_term"/><input type="hidden" name="utm_content"/><input type="hidden" name="page_url"/><input type="hidden" name="referrer"/>
 
-              <!-- Honeypot -->
               <input type="text" name="company_name" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0"/>
 
               <button id="submitBtn" class="btn btn-primary" type="submit">Submit</button>
@@ -509,10 +363,19 @@
   </footer>
 
   <script>
-    // Announcement close
-    const announce = document.getElementById('announce');
+    // Measure announcement height for layout offsets
+    function setAnnounceHeight(){
+      const bar = document.getElementById('announce');
+      const h = bar && bar.offsetHeight ? bar.offsetHeight : 0;
+      document.documentElement.style.setProperty('--announce-h', h + 'px');
+    }
+    window.addEventListener('load', setAnnounceHeight);
+    window.addEventListener('resize', setAnnounceHeight);
+
+    // Dismiss announcement
     document.getElementById('announce-close')?.addEventListener('click', ()=>{
-      announce.style.display = 'none';
+      const bar = document.getElementById('announce');
+      if(bar){ bar.style.display='none'; document.documentElement.style.setProperty('--announce-h','0px'); }
     });
 
     // Mobile menu
@@ -522,15 +385,14 @@
     function toggleNav(open){
       const willOpen = typeof open === 'boolean' ? open : !menu.classList.contains('open');
       menu.classList.toggle('open', willOpen);
-      overlay.classList.toggle('show', willOpen);
+      overlay.style.display = willOpen ? 'block' : 'none';
       document.documentElement.classList.toggle('nav-open', willOpen);
     }
     hamburger?.addEventListener('click', ()=> toggleNav());
     overlay?.addEventListener('click', ()=> toggleNav(false));
-    // Close on link click (and smooth scroll)
     document.querySelectorAll('#menu a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
-        const id = a.getAttribute('href');
+        const id=a.getAttribute('href');
         if(id && id.startsWith('#') && id.length>1){
           e.preventDefault();
           document.querySelector(id)?.scrollIntoView({behavior:'smooth'});
@@ -538,13 +400,12 @@
         }
       });
     });
-    // Close if resized to desktop
     window.addEventListener('resize', ()=> { if (window.innerWidth > 980) toggleNav(false); });
 
     // Year
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // Header depth on scroll + scroll progress + subtle hero parallax
+    // Header shadow + progress + hero parallax
     const hero = document.querySelector('.hero');
     const header = document.querySelector('header');
     function onScroll(){
@@ -552,14 +413,9 @@
       const doc = document.documentElement;
       const max = (doc.scrollHeight - doc.clientHeight) || 1;
       const ratio = Math.min(1, Math.max(0, y / max));
-      document.documentElement.style.setProperty('--scroll', ratio);
-      if (hero){
-        const par = Math.min(1, y / 600);
-        hero.style.setProperty('--par', par.toFixed(3));
-      }
-      if (header){
-        if (y > 8) header.classList.add('scrolled'); else header.classList.remove('scrolled');
-      }
+      doc.style.setProperty('--scroll', ratio);
+      if (hero){ const par = Math.min(1, y / 600); hero.style.setProperty('--par', par.toFixed(3)); }
+      if (header){ if (y > 8) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
     }
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
@@ -583,103 +439,62 @@
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
 
-  <!-- UTM/meta capture + HubSpot Forms API submission (hutk only if present) -->
+  <!-- HubSpot Forms API (hutk only if present) -->
   <script>
     (function(){
-      const DEBUG = false;
-
-      // Capture UTMs/meta
+      const DEBUG=false;
       const qs=new URLSearchParams(location.search);
-      const utmKeys=['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
-      const meta={page_url:location.href, referrer:document.referrer || ''};
-      utmKeys.forEach(k=>{
-        const v=qs.get(k) || localStorage.getItem(k) || '';
-        if(v){ localStorage.setItem(k,v); meta[k]=v; }
-      });
+      const utm=['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+      const meta={page_url:location.href, referrer:document.referrer||''};
+      utm.forEach(k=>{const v=qs.get(k)||localStorage.getItem(k)||''; if(v){localStorage.setItem(k,v); meta[k]=v;}});
 
-      // HubSpot config (ensure these exist on your HubSpot form)
-      const portalId='243640889';
-      const formId='88be37be-f524-4882-b51f-34152eff6b66';
+      const portalId='243640889', formId='88be37be-f524-4882-b51f-34152eff6b66';
+      const props=['firstname','email','mobilephone','website','message','utm_source','utm_medium','utm_campaign','utm_term','utm_content','page_url','referrer'];
 
-      // Only include fields present on the HubSpot form
-      const allowedProps=[
-        'firstname','email','mobilephone','website','message',
-        'utm_source','utm_medium','utm_campaign','utm_term','utm_content',
-        'page_url','referrer'
-      ];
-
-      const form=document.getElementById('contact-form');
-      const statusEl=document.getElementById('form-status');
-      const btn=document.getElementById('submitBtn');
+      const form=document.getElementById('contact-form'),
+            statusEl=document.getElementById('form-status'),
+            btn=document.getElementById('submitBtn');
 
       function getCookie(name){
         const m=document.cookie.match(new RegExp('(?:^|; )'+name.replace(/([.*+?^${}()|[\\]\\\\])/g,'\\$1')+'=([^;]*)'));
         return m ? decodeURIComponent(m) : '';
       }
 
-      function buildPayload(fd){
+      function build(fd){
         const fields=[];
-        allowedProps.forEach(name=>{
-          const v=fd.get(name) || meta[name] || '';
-          if(v) fields.push({name,value:String(v)});
-        });
-
-        const context={pageUri:location.href,pageName:document.title};
+        props.forEach(n=>{const v=fd.get(n)||meta[n]||''; if(v) fields.push({name:n,value:String(v)});});
+        const ctx={pageUri:location.href,pageName:document.title};
         const hutk=getCookie('hubspotutk');
-        if(hutk) context.hutk = hutk; // include only when present
-
-        const payload={
+        if(hutk) ctx.hutk=hutk;
+        return {
           fields,
-          context,
-          // GDPR consent (safe to include)
+          context:ctx,
           legalConsentOptions:{consent:{consentToProcess:true,text:"I agree to allow processing.",communications:[]}}
         };
-        if(DEBUG) console.log('HS payload',payload);
-        return payload;
       }
 
-      async function submitHS(payload){
-        const url=`https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
-        return fetch(url,{
-          method:'POST',
-          headers:{'Content-Type':'application/json','Accept':'application/json'},
-          body:JSON.stringify(payload),
-          mode:'cors',
-          credentials:'omit'
+      async function submitHS(p){
+        return fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,{
+          method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(p), mode:'cors', credentials:'omit'
         });
       }
 
       if(form){
-        // Prefill hidden meta inputs so they store to properties if created in HS
-        Object.keys(meta).forEach(k=>{
-          const el=form.querySelector(`[name="${k}"]`);
-          if(el) el.value=meta[k] || '';
-        });
+        Object.keys(meta).forEach(k=>{const el=form.querySelector(`[name="${k}"]`); if(el) el.value=meta[k]||'';});
 
-        form.addEventListener('submit', async (e)=>{
+        form.addEventListener('submit', async e=>{
           e.preventDefault();
           statusEl.textContent='';
 
-          // Honeypot
-          if(form.company_name && form.company_name.value){
-            statusEl.textContent='Thanks!';
-            form.reset(); return;
-          }
-
-          const fd=new FormData(form);
-          const payload=buildPayload(fd);
+          if(form.company_name && form.company_name.value){ statusEl.textContent='Thanks!'; form.reset(); return; }
 
           btn.disabled=true; const prev=btn.textContent; btn.textContent='Sending...';
           try{
-            const res=await submitHS(payload);
-            let json=null; try{ json=await res.json(); }catch(_){}
-            if(DEBUG) console.log('HS response',res.status,json);
-            if(res.ok){
-              statusEl.textContent='Thanks! I’ll reply within 1 business day.';
-              form.reset();
-            }else{
-              statusEl.textContent = json && json.errors ? json.errors.map(e=>e.message).join(' | ') : 'Submission failed. Please email me.';
-            }
+            const res=await submitHS(build(new FormData(form)));
+            let j=null; try{ j=await res.json(); }catch(_){}
+            if(DEBUG) console.log('HS response',res.status,j);
+            if(res.ok){ statusEl.textContent='Thanks! I’ll reply within 1 business day.'; form.reset(); }
+            else{ statusEl.textContent = j && j.errors ? j.errors.map(e=>e.message).join(' | ') : 'Submission failed. Please email me.'; }
           }catch(err){
             if(DEBUG) console.error(err);
             statusEl.textContent='Network error. Please email me.';
@@ -690,9 +505,5 @@
       }
     })();
   </script>
-
-  <!-- Optional: HubSpot tracker to set hutk for attribution (not required for submission) -->
-  <!-- <script id="hs-script-loader" type="text/javascript" async defer src="https://js.hs-scripts.com/243640889.js"></script> -->
 </body>
 </html>
-
