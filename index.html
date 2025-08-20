@@ -71,8 +71,24 @@
       padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px;
     }
     .announce-text{flex:1 1 240px; text-align:center; color:var(--ink); font-weight:600}
-    .btn-sm{padding:8px 12px; border-radius:18px; min-height:36px; font-size:14px}
+    .btn-sm{padding:8px 12px; border-radius:18px; min-height:36px; font-size:14px; white-space:nowrap}
     .announce-close{border:0;background:transparent;color:var(--ink-2);font-size:18px;cursor:pointer;padding:4px 8px;border-radius:8px}
+
+    /* COMPACT mobile banner (keeps one line, trims text) */
+    @media (max-width:420px){
+      .announce{ padding: calc(6px + env(safe-area-inset-top,0px)) 10px 6px; gap:8px; flex-wrap:nowrap }
+      .announce-text{
+        font-size:13px; line-height:1.3;
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      }
+      .announce .btn-sm{ font-size:13px; padding:8px 10px; min-height:34px }
+      .announce-close{ font-size:16px; padding:4px 6px }
+    }
+    /* Roomier small/medium phones */
+    @media (min-width:421px) and (max-width:768px){
+      .announce{ padding: calc(6px + env(safe-area-inset-top,0px)) 12px 6px; }
+      .announce-text{ font-size:14px }
+    }
 
     /* Header sits below announcement */
     header{
@@ -160,6 +176,7 @@
     .reveal{opacity:0;transform:translateY(8px) scale(.985);transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);will-change:transform,opacity}
     .reveal.in{opacity:1;transform:none}
 
+    /* Progress bar under banner */
     #scroll-progress{
       position:fixed; top: var(--announce-h); left:0; height:3px; width:100%;
       transform-origin:0 50%; transform:scaleX(var(--scroll, 0));
@@ -186,7 +203,7 @@
 
   <!-- Announcement -->
   <div class="announce" id="announce">
-    <span class="announce-text">Actively seeking full‑time B2B SaaS marketing roles.</span>
+    <span class="announce-text">Actively seeking full‑time B2B SaaS roles.</span>
     <a class="btn btn-primary btn-sm" href="#contact">Book a chat</a>
     <button class="announce-close" id="announce-close" aria-label="Dismiss">×</button>
   </div>
@@ -363,7 +380,7 @@
   </footer>
 
   <script>
-    // Measure announcement height for layout offsets
+    // Measure announcement height for offsets
     function setAnnounceHeight(){
       const bar = document.getElementById('announce');
       const h = bar && bar.offsetHeight ? bar.offsetHeight : 0;
@@ -372,7 +389,7 @@
     window.addEventListener('load', setAnnounceHeight);
     window.addEventListener('resize', setAnnounceHeight);
 
-    // Dismiss announcement
+    // Dismiss banner
     document.getElementById('announce-close')?.addEventListener('click', ()=>{
       const bar = document.getElementById('announce');
       if(bar){ bar.style.display='none'; document.documentElement.style.setProperty('--announce-h','0px'); }
@@ -464,13 +481,8 @@
         const fields=[];
         props.forEach(n=>{const v=fd.get(n)||meta[n]||''; if(v) fields.push({name:n,value:String(v)});});
         const ctx={pageUri:location.href,pageName:document.title};
-        const hutk=getCookie('hubspotutk');
-        if(hutk) ctx.hutk=hutk;
-        return {
-          fields,
-          context:ctx,
-          legalConsentOptions:{consent:{consentToProcess:true,text:"I agree to allow processing.",communications:[]}}
-        };
+        const hutk=getCookie('hubspotutk'); if(hutk) ctx.hutk=hutk;
+        return { fields, context:ctx, legalConsentOptions:{consent:{consentToProcess:true,text:"I agree to allow processing.",communications:[]}} };
       }
 
       async function submitHS(p){
@@ -490,8 +502,7 @@
 
           btn.disabled=true; const prev=btn.textContent; btn.textContent='Sending...';
           try{
-            const res=await submitHS(build(new FormData(form)));
-            let j=null; try{ j=await res.json(); }catch(_){}
+            const res=await submitHS(build(new FormData(form))); let j=null; try{ j=await res.json(); }catch(_){}
             if(DEBUG) console.log('HS response',res.status,j);
             if(res.ok){ statusEl.textContent='Thanks! I’ll reply within 1 business day.'; form.reset(); }
             else{ statusEl.textContent = j && j.errors ? j.errors.map(e=>e.message).join(' | ') : 'Submission failed. Please email me.'; }
